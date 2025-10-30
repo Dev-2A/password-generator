@@ -152,3 +152,19 @@ export function updateSliderValue(sliderId, displayId) {
 export function initHistoryUI() {
   updateHistoryUI();
 }
+
+/**
+ * 힌트 표시 업데이트
+ */
+export function updateHintDisplay(hint) {
+  const hintSection = document.querySelector(SELECTORS.HINT_SECTION);
+  const hintText = document.querySelector(SELECTORS.HINT_TEXT);
+
+  if (hint) {
+    hintText.textContent = hint;
+    hintSection.style.display = 'flex';
+  } else {
+    hintSection.style.display = 'none';
+    hintText.textContent = '';
+  }
+}

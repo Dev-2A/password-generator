@@ -1,5 +1,5 @@
-import { CHARSET, WORD_LIST } from './config.js';
-import { getRandomElement, getRandomInt, shuffleString } from '../utils/helpers.js';
+import { CHARSET, WORD_LISTS } from './config.js';
+import { getRandomElement, getRandomInt, shuffleString, convertHangulToEnglish } from '../utils/helpers.js';
 
 /**
  * 일반 비밀번호 생성
@@ -44,13 +44,24 @@ export function generatePassword(options) {
  * 패스프레이즈 생성
  */
 export function generatePassphrase(options) {
-  const { wordCount, separator, capitalize, includeNumber } = options;
+  const { wordCount, separator, capitalize, includeNumber, language } = options;
+
+  // 선택된 언어의 단어 리스트 가져오기
+  const wordList = WORD_LISTS[language] || WORD_LISTS.en;
 
   const selectedWords = [];
+  const originalWords = [];   // 원본 한글 저장용
 
   // 랜덤 단어 선택
   for (let i = 0; i < wordCount; i++) {
-    let word = getRandomElement(WORD_LIST);
+    let word = getRandomElement(wordList);
+    const originalWord = word;    // 원본 저장
+
+    // 한국어인 경우 영문 자판으로 변환
+    if (language === 'ko') {
+      originalWords.push(originalWord);
+      word = convertHangulToEnglish(word);
+    }
 
     // 첫 글자 대문자 옵션
     if (capitalize) {
@@ -69,7 +80,16 @@ export function generatePassphrase(options) {
     passphrase += separator + randomNum;
   }
 
-  return passphrase;
+  // 한국어인 경우 힌트 정보도 함께 반환
+if (language === 'ko') {
+    let hint = originalWords.join(separator);
+    if (includeNumber) {
+      hint += separator + '(숫자)';
+    }
+    return { password: passphrase, hint: hint };
+}
+
+return { password: passphrase, hint: null };
 }
 
 /**
@@ -77,7 +97,7 @@ export function generatePassphrase(options) {
  */
 export function generate(type, options) {
   if (type === 'password') {
-    return generatePassword(options);
+    return { password: generatePassword(options), hint: null };
   } else if (type === 'passphrase') {
     return generatePassphrase(options);
   } else {

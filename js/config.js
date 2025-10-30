@@ -7,7 +7,7 @@ export const CHARSET = {
 };
 
 //SECTION - 패스프레이즈용 단어 목록
-export const WORD_LIST = [
+export const WORD_LIST_EN = [
   'apple', 'banana', 'cherry', 'dragon', 'eagle', 'forest', 'galaxy', 'happy',
   'island', 'jungle', 'kitchen', 'lemon', 'mountain', 'nature', 'ocean', 'planet',
   'quantum', 'river', 'sunset', 'thunder', 'universe', 'valley', 'winter', 'yellow',
@@ -16,6 +16,26 @@ export const WORD_LIST = [
   'phoenix', 'quest', 'rocket', 'storm', 'tiger', 'unicorn', 'volcano', 'wizard',
   'crystal', 'meteor', 'shadow', 'thunder', 'whisper', 'breeze', 'cosmic', 'lunar'
 ];
+
+// 한국어 단어
+export const WORD_LIST_KO = [
+  '사과', '바나나', '체리', '용', '독수리', '숲', '은하', '행복',
+  '섬', '정글', '부엌', '레몬', '산', '자연', '바다', '행성',
+  '양자', '강', '일몰', '천둥', '우주', '계곡', '겨울', '노랑',
+  '얼룩말', '닻', '다리', '성', '다이아', '엔진', '불꽃', '정원',
+  '항구', '철', '옥', '기사', '레이저', '마법', '닌자', '궤도',
+  '불사조', '탐험', '로켓', '폭풍', '호랑이', '유니콘', '화산', '마법사',
+  '수정', '유성', '그림자', '속삭임', '산들바람', '달빛', '별빛', '구름',
+  '꽃', '나무', '하늘', '땅', '바람', '물', '불', '빛'
+];
+
+//SECTION - 단어 리스트 맵 (언어별)
+export const WORD_LISTS = {
+  en: WORD_LIST_EN,
+  ko: WORD_LIST_KO
+};
+
+export const WORD_LIST = WORD_LIST_EN;
 
 //SECTION - 강도 레벨 설정
 export const STRENGTH_LEVELS = {
@@ -71,5 +91,7 @@ export const SELECTORS = {
   HISTORY_LIST: '#historyList',
   TYPE_RADIOS: 'input[name="type"]',
   PASSWORD_OPTIONS: '#passwordOptions',
-  PASSPHRASE_OPTIONS: '#passphraseOptions'
+  PASSPHRASE_OPTIONS: '#passphraseOptions',
+  HINT_SECTION: '#hintSection',
+  HINT_TEXT: '#hintText'
 };

@@ -25,6 +25,13 @@
           <button id="copyBtn" class="btn-icon" title="복사">📋</button>
         </div>
 
+        <!-- Hint Section -->
+        <div id="hintSection" class="hint-section" style="display: none;">
+          <span class="hint-icon">💡</span>
+          <span class="hint-label">힌트:</span>
+          <span id="hintText" class="hint-text"></span>
+        </div>
+
         <div class="strength-indicator">
           <div class="strength-meter">
             <div class="strength-bar" id="strengthBar"></div>
@@ -92,6 +99,20 @@
 
         <!-- Passphrase Option -->
         <div id="passphraseOptions" class="options-panel" style="display: none;">
+          <div class="option-group">
+            <label class="option-label">언어</label>
+            <div class="radio-group">
+              <label class="radio-label">
+                <input type="radio" name="language" value="en" checked>
+                <span>영어</span>
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="language" value="ko">
+                <span>한국어</span>
+              </label>
+            </div>
+          </div>
+
           <div class="option-group">
             <label class="option-label">
               단어 수: <span id="wordCountValue" class="value-display">4</span>

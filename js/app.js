@@ -6,7 +6,8 @@ import {
   addToHistory,
   toggleOptionsPanel,
   updateSliderValue,
-  initHistoryUI
+  initHistoryUI,
+  updateHintDisplay
 } from './ui.js';
 import { SELECTORS } from './config.js';
 
@@ -65,11 +66,12 @@ function handleGenerate() {
   try {
     const type = document.querySelector('input[name="type"]:checked').value;
     const options = getOptions(type);
-    const password = generate(type, options);
+    const result = generate(type, options);
 
-    updatePasswordDisplay(password);
-    updateStrengthIndicator(password);
-    addToHistory(password);
+    updatePasswordDisplay(result.password);
+    updateStrengthIndicator(result.password);
+    updateHintDisplay(result.hint);
+    addToHistory(result.password);
 
   } catch (error) {
     alert(error.message);
@@ -94,7 +96,8 @@ function getOptions(type) {
       wordCount: parseInt(document.getElementById('wordCount').value),
       separator: document.getElementById('separator').value || '-',
       capitalize: document.getElementById('capitalize').checked,
-      includeNumber: document.getElementById('includeNumber').checked
+      includeNumber: document.getElementById('includeNumber').checked,
+      language: document.querySelector('input[name="language"]:checked').value
     };
   }
 }
