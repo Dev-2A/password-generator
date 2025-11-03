@@ -1,37 +1,11 @@
-/* 강도별 색상 */
-.strength-weak {
-  background: var(--color-danger);
-}
+/* ======================
+  애니메이션
+  ====================== */
 
-.strength-medium {
-  background: var(--color-warning);
-}
-
-.strength-strong {
-  background: var(--color-success);
-}
-
-.strength-very-strong {
-  background: var(--color-info);
-}
-
-/* 다크 모드 (추후 확장용) */
-@media (prefers-color-scheme: dark) {
-  /* 
-  :root {
-      --color-bg-primary: #1a1a1a;
-      --color-bg-secondary: #2a2a2a;
-      --color-text-primary: #ffffff;
-      ...
-  }
-  */
-}
-
-/* 애니메이션 (추후 확장용) */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -48,11 +22,42 @@
   }
 }
 
-/* 유틸리티 클래스 (추후 확장용) */
 .fade-in {
   animation: fadeIn 0.3s ease;
 }
 
 .pulse {
-  animation: pulse 0.5s ease;
+  animation: pulse 0.3s ease;
+}
+
+/* ======================
+  유틸리티 클래스
+  ====================== */
+
+.text-center {
+  text-align: center;
+}
+
+.mt-sm {
+  margin-top: var(--spacing-sm);
+}
+
+.mt-md {
+  margin-top: var(--spacing-md);
+}
+
+.mt-lg {
+  margin-top: var(--spacing-lg);
+}
+
+.mb-sm {
+  margin-bottom: var(--spacing-sm);
+}
+
+.mb-md {
+  margin-bottom: var(--spacing-md);
+}
+
+.mb-lg {
+  margin-bottom: var(--spacing-lg);
 }

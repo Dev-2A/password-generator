@@ -44,10 +44,38 @@ export function generatePassword(options) {
  * 패스프레이즈 생성
  */
 export function generatePassphrase(options) {
-  const { wordCount, separator, capitalize, includeNumber, language } = options;
+  const { wordCount, separator, capitalize, includeNumber, language, customWords } = options;
 
-  // 선택된 언어의 단어 리스트 가져오기
-  const wordList = WORD_LISTS[language] || WORD_LISTS.en;
+  let wordList;
+  let isKoreanBased = false; // 한글 기반 여부
+
+  // 커스텀 단어 처리
+  if (language === 'custom') {
+    if (!customWords || customWords.trim() === '') {
+      throw new Error('커스텀 단어를 입력해주세요!');
+    }
+
+    // 쉼표로 분리하고 공백 제거
+    wordList = customWords
+      .split(',')
+      .map(word => word.trim())
+      .filter(word => word.length > 0);
+    
+    if (wordList.length === 0) {
+      throw new Error('유효한 단어를 입력해주세요!');
+    }
+
+    if (wordList.length < wordCount) {
+      throw new Error(`최소 ${wordCount}개 이상의 단어가 필요합니다! (현재: ${wordList.length}개)`);
+    }
+
+    // 한글이 포함되어 있는지 확인
+    isKoreanBased = wordList.some(word => /[가-힣]/.test(word));
+  } else {
+    // 선택된 언어의 단어 리스트 가져오기
+    wordList = WORD_LISTS[language] || WORD_LISTS.en;
+    isKoreanBased = (language === 'ko');
+  }
 
   const selectedWords = [];
   const originalWords = [];   // 원본 한글 저장용
@@ -58,7 +86,7 @@ export function generatePassphrase(options) {
     const originalWord = word;    // 원본 저장
 
     // 한국어인 경우 영문 자판으로 변환
-    if (language === 'ko') {
+    if (isKoreanBased || /[가-힣]/.test(word)) {
       originalWords.push(originalWord);
       word = convertHangulToEnglish(word);
     }
@@ -81,12 +109,12 @@ export function generatePassphrase(options) {
   }
 
   // 한국어인 경우 힌트 정보도 함께 반환
-if (language === 'ko') {
-    let hint = originalWords.join(separator);
-    if (includeNumber) {
-      hint += separator + '(숫자)';
-    }
-    return { password: passphrase, hint: hint };
+if (originalWords.length > 0) {
+  let hint = originalWords.join(separator);
+  if (includeNumber) {
+    hint += separator + '(숫자)';
+  }
+  return { password: passphrase, hint: hint };
 }
 
 return { password: passphrase, hint: null };

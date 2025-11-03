@@ -1,9 +1,21 @@
-import { DEFAULT_CONFIG, SELECTORS } from './config.js';
+import { DEFAULT_CONFIG, SELECTORS, STORAGE_KEYS } from './config.js';
 import { analyzePassword } from './strength.js';
-import { copyToClipboard } from '../utils/helpers.js';
+import { copyToClipboard, saveToLocalStorage, loadFromLocalStorage } from '../utils/helpers.js';
 
 // 상태 관리
 let history = [];
+
+// 로컬 스토리지에서 히스토리 불러오기
+export function loadHistory() {
+  const savedHistory = loadFromLocalStorage(STORAGE_KEYS.HISTORY, []);
+  history = savedHistory;
+  updateHistoryUI();
+}
+
+// 로컬 스토리지에 히스토리 저장
+function saveHistory() {
+  saveToLocalStorage(STORAGE_KEYS.HISTORY, history);
+}
 
 /**
  * 비밀번호 출력 영역 업데이트
@@ -87,6 +99,7 @@ export function addToHistory(password) {
     history = history.slice(0, DEFAULT_CONFIG.MAX_HISTORY);
   }
 
+  saveHistory();
   updateHistoryUI();
 }
 
@@ -166,5 +179,16 @@ export function updateHintDisplay(hint) {
   } else {
     hintSection.style.display = 'none';
     hintText.textContent = '';
+  }
+}
+
+/**
+ * 히스토리 초기화 (전체 삭제)
+ */
+export function clearHistory() {
+  if (confirm('모든 생성 기록을 삭제하시겠습니까?')) {
+    history = [];
+    saveHistory();
+    updateHistoryUI();
   }
 }

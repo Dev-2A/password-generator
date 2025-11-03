@@ -1,65 +1,176 @@
-body {
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: var(--spacing-lg);
-}
+/* ======================
+  전체 레이아웃
+  ====================== */
 
 .container {
-  background: var(--color-bg-primary);
-  border-radius: var(--radius-xl);
-  padding: var(--spacing-2xl);
   max-width: 500px;
-  width: 100%;
-  box-shadow: var(--shadow-xl);
-}
-
-.header {
-  margin-bottom: var(--spacing-xl);
-}
-
-.header h1 {
-  text-align: center;
-  font-size: var(--font-size-2xl);
-  color: var(--color-text-primary);
+  margin: 0 auto;
+  padding: var(--spacing-lg);
 }
 
 .main-content {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-xl);
+  gap: var(--spacing-lg);
 }
 
-/* 섹션 */
-.output-section,
-.options-section,
-.history-section {
+/* ======================
+  헤더
+  ====================== */
+
+.header {
+  text-align: center;
+  padding: var(--spacing-xl) var(--spacing-md);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  color: white;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 6px var(--color-shadow);
+}
+
+.header-top {
   display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.header h1 {
+  font-size: var(--font-size-xl);
+  margin: 0;
+  flex: 1;
+}
+
+/* 테마 토글 버튼 */
+.theme-toggle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-base);
+  flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: scale(1.1);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+.theme-icon {
+  font-size: 24px;
+  transition: transform var(--transition-slow);
+}
+
+.theme-toggle:hover .theme-icon {
+  transform: rotate(20deg);
+}
+
+/* ======================
+  탭 메뉴
+  ====================== */
+
+.tab-menu {
+  display: flex;
+  gap: var(--spacing-sm);
+  justify-content: center;
+  margin-top: var(--spacing-lg);
+}
+
+.tab-button {
+  flex: 1;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border: 2px solid var(--color-border);
+  background: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.tab-button:hover {
+  background: var(--color-bg-tertiary);
+  border-color: var(--color-primary);
+}
+
+.tab-button.active {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+/* ======================
+  섹션 공통
+  ====================== */
+
+section {
+  background: var(--color-bg-secondary);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 1px 3px var(--color-shadow);
+  transition: background-color var(--transition-base), box-shadow var(--transition-base);
 }
 
 .section-title {
   font-size: var(--font-size-lg);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-md);
+}
+
+.section-description {
+  text-align: center;
   color: var(--color-text-secondary);
-  margin-bottom: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  margin-bottom: var(--spacing-md);
 }
 
-.options-panel {
-  background: var(--color-bg-secondary);
-  padding: var(--spacing-lg);
-  border-radius: var(--radius-lg);
-}
+/* ======================
+  반응형
+  ====================== */
 
-/* 반응형 */
 @media (max-width: 600px) {
   .container {
-      padding: var(--spacing-lg);
+    padding: var(--spacing-md);
+  }
+  
+  .header-top {
+    position: relative;
   }
   
   .header h1 {
-      font-size: var(--font-size-xl);
+    font-size: 1.25rem;
+  }
+  
+  .theme-toggle {
+    position: absolute;
+    top: -10px;
+    right: 0;
+    width: 40px;
+    height: 40px;
+  }
+  
+  .theme-icon {
+    font-size: 20px;
   }
 }

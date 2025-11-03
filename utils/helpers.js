@@ -126,4 +126,47 @@ export function convertHangulToEnglish(hangul) {
   }
 
   return result;
+};
+
+/**
+ * 로컬 스토리지에 데이터 저장
+ */
+export function saveToLocalStorage(key, data) {
+  try {
+    const jsonString = JSON.stringify(data);
+    localStorage.setItem(key, jsonString);
+    return true;
+  } catch (error) {
+    console.error('로컬 스토리지 저장 실패:', error);
+    return false;
+  }
+}
+
+/**
+ * 로컬 스토리지에서 데이터 불러오기
+ */
+export function loadFromLocalStorage(key, defaultValue = null) {
+  try {
+    const jsonString = localStorage.getItem(key);
+    if (jsonString === null) {
+      return defaultValue;
+    }
+    return JSON.parse(jsonString);
+  } catch (error) {
+    console.error('로컬 스토리지 불러오기 실패:', error);
+    return defaultValue;
+  }
+}
+
+/**
+ * 로컬 스토리지에서 데이터 삭제
+ */
+export function removeFromLocalStorage(key) {
+  try {
+    localStorage.removeItem(key);
+    return true;
+  } catch (error) {
+    console.error('로컬 스토리지 삭제 실패:', error);
+    return false;
+  }
 }

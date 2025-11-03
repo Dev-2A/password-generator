@@ -32,7 +32,8 @@ export const WORD_LIST_KO = [
 //SECTION - 단어 리스트 맵 (언어별)
 export const WORD_LISTS = {
   en: WORD_LIST_EN,
-  ko: WORD_LIST_KO
+  ko: WORD_LIST_KO,
+  custom: []
 };
 
 export const WORD_LIST = WORD_LIST_EN;
@@ -77,8 +78,36 @@ export const DEFAULT_CONFIG = {
   PASSPHRASE_MIN_WORDS: 3,
   PASSPHRASE_MAX_WORDS: 8,
   PASSPHRASE_DEFAULT_WORDS: 4,
-  MAX_HISTORY: 5,
+  MAX_HISTORY: 20,
   COPY_FEEDBACK_DURATION: 1000
+};
+
+//SECTION - 로컬 스토리지 키 이름
+export const STORAGE_KEYS = {
+  SETTINGS: 'password-generator-settings',
+  HISTORY: 'password-generator-history',
+  CUSTOM_WORDS: 'password-generator-custom-words',
+  THEME: 'password-generator-theme'
+};
+
+//SECTION - 기본 설정값
+export const DEFAULT_SETTINGS = {
+  type: 'password',
+  password: {
+    length: 12,
+    uppercase: true,
+    lowercase: true,
+    numbers: true,
+    sysmbols: true
+  },
+  passphrase: {
+    wordCount: 4,
+    language: 'en',
+    separator: '-',
+    capitalize: false,
+    includeNumber: false,
+    customWords: ''
+  }
 };
 
 //SECTION - DOM 선택자
@@ -93,5 +122,12 @@ export const SELECTORS = {
   PASSWORD_OPTIONS: '#passwordOptions',
   PASSPHRASE_OPTIONS: '#passphraseOptions',
   HINT_SECTION: '#hintSection',
-  HINT_TEXT: '#hintText'
+  HINT_TEXT: '#hintText',
+  VALIDATE_BTN: '#validateBtn',
+  PASSWORD_TO_VALIDATE: '#passwordToValidate',
+  TOGGLE_PASSWORD_BTN: '#togglePasswordBtn',
+  VALIDATION_RESULT: '#validationResult',
+  VALIDATOR_STRENGTH_BAR: '#validatorStrengthBar',
+  VALIDATOR_STRENGTH_TEXT: '#validatorStrengthText',
+  THEME_TOGGLE: '#themeToggle'
 };
